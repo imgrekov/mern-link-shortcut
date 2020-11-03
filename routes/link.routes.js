@@ -30,6 +30,19 @@ router.post('/generate', auth, async (req, res) => {
   }
 })
 
+// /api/link/delete
+router.post('/delete', auth, async (req, res) => {
+  try {
+    const { _id } = req.body
+    await Link.deleteOne({ _id })
+
+    const redirect = { to: '/links' }
+    res.json({ redirect })
+  } catch (e) {
+    res.status(500).json({ message: 'Что-то пошло не так… ' })
+  }
+})
+
 // Получаю все ссылки
 // /api/link
 router.get('/', auth, async (req, res) => {
